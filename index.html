@@ -824,8 +824,8 @@ footer{border-top:1px solid var(--ink4);padding:48px 40px}
     </div>
     <div class="stack-col" style="background:var(--off)">
       <div class="stack-col-label">IoT / Hardware</div>
-      <div class="stack-item"><div class="stack-name">ESP32 + MQTT</div><div class="stack-why">$8 USD/nodo, WiFi integrado</div></div>
-      <div class="stack-item"><div class="stack-name">Jetson Nano</div><div class="stack-why">Edge AI, $99, local compute</div></div>
+      <div class="stack-item"><div class="stack-name">ESP32 + MQTT</div><div class="stack-why">~$150 MXN/nodo, WiFi integrado</div></div>
+      <div class="stack-item"><div class="stack-name">Jetson Nano</div><div class="stack-why">Edge AI, ~$1,880 MXN, cómputo local</div></div>
       <div class="stack-item"><div class="stack-name">Mosquitto</div><div class="stack-why">Broker IoT estándar industrial</div></div>
     </div>
   </div>
@@ -950,7 +950,7 @@ footer{border-top:1px solid var(--ink4);padding:48px 40px}
       <div class="plan-tag">Plan básico</div>
       <div class="plan-price-big">$499</div>
       <div class="plan-unit">MXN / mes</div>
-      <div class="plan-hw">+ $150 USD instalación única</div>
+      <div class="plan-hw">+ $2,850 MXN instalación única</div>
       <ul class="plan-features">
         <li>1 zona · hasta 5 empleados</li>
         <li>Sensores temperatura + humedad</li>
@@ -963,7 +963,7 @@ footer{border-top:1px solid var(--ink4);padding:48px 40px}
       <div class="plan-tag">Plan estándar</div>
       <div class="plan-price-big">$999</div>
       <div class="plan-unit">MXN / mes</div>
-      <div class="plan-hw">+ $250 USD instalación única</div>
+      <div class="plan-hw">+ $4,750 MXN instalación única</div>
       <ul class="plan-features">
         <li>3 zonas · hasta 15 empleados</li>
         <li>Predicciones IA completas</li>
@@ -976,7 +976,7 @@ footer{border-top:1px solid var(--ink4);padding:48px 40px}
       <div class="plan-tag">Plan pro</div>
       <div class="plan-price-big">$1,999</div>
       <div class="plan-unit">MXN / mes</div>
-      <div class="plan-hw">+ $350 USD instalación única</div>
+      <div class="plan-hw">+ $6,650 MXN instalación única</div>
       <ul class="plan-features">
         <li>Zonas y empleados ilimitados</li>
         <li>Visión artificial con cámara IA</li>
@@ -991,14 +991,14 @@ footer{border-top:1px solid var(--ink4);padding:48px 40px}
       <div class="hw-header">
         <span>Componente</span>
         <span>Función</span>
-        <span>Costo</span>
+        <span>Costo (MXN)</span>
       </div>
-      <div class="hw-row"><span>NVIDIA Jetson Nano</span><span>Edge AI — procesa cámara localmente</span><span>$99 USD</span></div>
-      <div class="hw-row"><span>3× ESP32 + DHT22</span><span>Sensores temperatura y humedad</span><span>$45 USD</span></div>
-      <div class="hw-row"><span>Cámara IP</span><span>Feed para visión artificial</span><span>$40 USD</span></div>
-      <div class="hw-row"><span>Sensor PIR</span><span>Movimiento nocturno</span><span>$8 USD</span></div>
-      <div class="hw-row"><span>Instalación</span><span>Setup, calibración, onboarding</span><span>$60 USD</span></div>
-      <div class="hw-row total"><span>Total por local</span><span>Un solo pago de instalación</span><span>~$252 USD</span></div>
+      <div class="hw-row"><span>NVIDIA Jetson Nano</span><span>Edge AI — procesa cámara localmente</span><span>~$1,880 MXN</span></div>
+      <div class="hw-row"><span>3× Nodos Sensores (ESP32+DHT22+PIR)</span><span>Monitoreo de zonas críticas (humedad, temp, movimiento)</span><span>~$630 MXN</span></div>
+      <div class="hw-row"><span>Cámara IP</span><span>Feed de video local para visión artificial</span><span>~$760 MXN</span></div>
+      <div class="hw-row"><span>Sensor PIR Adicional</span><span>Movimiento nocturno de largo alcance</span><span>~$150 MXN</span></div>
+      <div class="hw-row"><span>Instalación y Calibración</span><span>Setup físico, calibración del modelo y onboarding</span><span>~$1,330 MXN</span></div>
+      <div class="hw-row total"><span>Total por local</span><span>Un solo pago de instalación (Estándar)</span><span>~$4,750 MXN</span></div>
     </div>
   </div>
 </section>
@@ -1078,28 +1078,123 @@ if(incEl) new Chart(incEl, {
   options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{min:0,max:11,grid:{color:'#f0efeb'},ticks:{font:{size:10}}},x:{grid:{display:false},ticks:{font:{size:10}}}}}
 });
 
+// Initialize real-time rolling humidity data
+const initialLabels = [];
+const initialData = [];
+for(let i=9; i>=0; i--) {
+  const d = new Date(Date.now() - i * 5000);
+  initialLabels.push(d.toLocaleTimeString('es-MX', {hour: '2-digit', minute:'2-digit', second:'2-digit'}));
+  initialData.push(Math.round((64 + Math.random() * 14) * 10) / 10);
+}
+
 const hmEl = document.getElementById('c-humidity');
-if(hmEl) new Chart(hmEl, {
-  type:'line',
-  data:{
-    labels:['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'],
-    datasets:[
-      {label:'Humedad %',data:[62,65,68,71,74,73,76],borderColor:'#4a4a47',backgroundColor:'rgba(26,107,74,0.04)',fill:true,tension:0.4,borderWidth:1.5,pointRadius:2,pointBackgroundColor:'#4a4a47'},
-      {label:'Umbral',data:[70,70,70,70,70,70,70],borderColor:'#c0392b',borderWidth:1,borderDash:[4,4],pointRadius:0,fill:false}
-    ]
-  },
-  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{min:55,max:82,grid:{color:'#f0efeb'},ticks:{font:{size:10}}},x:{grid:{display:false},ticks:{font:{size:10}}}}}
-});
+let humidityChart;
+if(hmEl) {
+  humidityChart = new Chart(hmEl, {
+    type:'line',
+    data:{
+      labels:initialLabels,
+      datasets:[
+        {label:'Humedad %',data:initialData,borderColor:'#4a4a47',backgroundColor:'rgba(26,107,74,0.04)',fill:true,tension:0.4,borderWidth:1.5,pointRadius:2,pointBackgroundColor:'#4a4a47'},
+        {label:'Umbral',data:Array(10).fill(70),borderColor:'#c0392b',borderWidth:1,borderDash:[4,4],pointRadius:0,fill:false}
+      ]
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{min:50,max:85,grid:{color:'#f0efeb'},ticks:{font:{size:10}}},x:{grid:{display:false},ticks:{font:{size:10}}}}}
+  });
+}
 
 const tkEl = document.getElementById('c-tasks');
-if(tkEl) new Chart(tkEl, {
-  type:'bar',
-  data:{
-    labels:['Carlos','María','Luis','Ana'],
-    datasets:[{data:[45,88,72,93],backgroundColor:['rgba(192,57,43,0.15)','rgba(26,107,74,0.15)','rgba(184,134,11,0.15)','rgba(26,107,74,0.15)'],borderColor:['#c0392b','#1a6b4a','#b8860b','#1a6b4a'],borderWidth:1,borderRadius:0}]
-  },
-  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{min:0,max:100,grid:{color:'#f0efeb'},ticks:{font:{size:10},callback:v=>v+'%'}},x:{grid:{display:false},ticks:{font:{size:11}}}}}
-});
+let taskChart;
+if(tkEl) {
+  taskChart = new Chart(tkEl, {
+    type:'bar',
+    data:{
+      labels:['Carlos','María','Luis','Ana'],
+      datasets:[{data:[45,88,72,93],backgroundColor:['rgba(192,57,43,0.15)','rgba(26,107,74,0.15)','rgba(184,134,11,0.15)','rgba(26,107,74,0.15)'],borderColor:['#c0392b','#1a6b4a','#b8860b','#1a6b4a'],borderWidth:1,borderRadius:0}]
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{min:0,max:100,grid:{color:'#f0efeb'},ticks:{font:{size:10},callback:v=>v+'%'}},x:{grid:{display:false},ticks:{font:{size:11}}}}}
+  });
+}
+
+// Real-time updates simulation
+// 1. Humidity Rolling (every 1.5s)
+setInterval(() => {
+  if (!humidityChart) return;
+  const lastVal = humidityChart.data.datasets[0].data[humidityChart.data.datasets[0].data.length - 1];
+  const change = (Math.random() - 0.48) * 4; // slight variance
+  let newVal = Math.min(84, Math.max(54, lastVal + change));
+  newVal = Math.round(newVal * 10) / 10;
+  
+  humidityChart.data.datasets[0].data.shift();
+  humidityChart.data.datasets[0].data.push(newVal);
+  
+  const now = new Date();
+  const timeStr = now.toLocaleTimeString('es-MX', {hour: '2-digit', minute:'2-digit', second:'2-digit'});
+  humidityChart.data.labels.shift();
+  humidityChart.data.labels.push(timeStr);
+  
+  humidityChart.update('none');
+}, 1500);
+
+// 2. Task Completion fluctuation (every 2.5s)
+setInterval(() => {
+  if (!taskChart) return;
+  const idx = Math.floor(Math.random() * taskChart.data.datasets[0].data.length);
+  let val = taskChart.data.datasets[0].data[idx];
+  val += Math.floor(Math.random() * 7) - 3; // -3% to +4%
+  val = Math.min(100, Math.max(35, val));
+  taskChart.data.datasets[0].data[idx] = val;
+  
+  const colors = taskChart.data.datasets[0].backgroundColor;
+  const borderColors = taskChart.data.datasets[0].borderColor;
+  if(val < 50) {
+    colors[idx] = 'rgba(192,57,43,0.15)';
+    borderColors[idx] = '#c0392b';
+  } else if(val < 75) {
+    colors[idx] = 'rgba(184,134,11,0.15)';
+    borderColors[idx] = '#b8860b';
+  } else {
+    colors[idx] = 'rgba(26,107,74,0.15)';
+    borderColors[idx] = '#1a6b4a';
+  }
+  taskChart.update();
+}, 2500);
+
+// 3. Risk bars animation (every 2s)
+setInterval(() => {
+  const rows = document.querySelectorAll('.risk-row');
+  rows.forEach(row => {
+    const zoneSpan = row.querySelector('.risk-zone');
+    const barInner = row.querySelector('.risk-bar-inner');
+    const valSpan = row.querySelector('.risk-val');
+    if (!zoneSpan || !barInner || !valSpan) return;
+    
+    let currentVal = parseInt(valSpan.textContent);
+    let delta = Math.floor(Math.random() * 5) - 2; // -2 to +2
+    let newVal = currentVal + delta;
+    
+    const zone = zoneSpan.textContent.trim();
+    if (zone === 'Almacén') newVal = Math.min(84, Math.max(72, newVal));
+    else if (zone === 'Zona carga') newVal = Math.min(60, Math.max(45, newVal));
+    else if (zone === 'Cám. fría') newVal = Math.min(42, Math.max(28, newVal));
+    else if (zone === 'Cocina') newVal = Math.min(26, Math.max(15, newVal));
+    else if (zone === 'Baños') newVal = Math.min(18, Math.max(8, newVal));
+    
+    valSpan.textContent = newVal;
+    barInner.style.width = newVal + '%';
+    
+    if (newVal >= 70) {
+      barInner.style.background = '#c0392b';
+      valSpan.style.color = '#c0392b';
+    } else if (newVal >= 35) {
+      barInner.style.background = '#b8860b';
+      valSpan.style.color = '#b8860b';
+    } else {
+      barInner.style.background = '#1a6b4a';
+      valSpan.style.color = '#1a6b4a';
+    }
+  });
+}, 2000);
 </script>
 </body>
 </html>
