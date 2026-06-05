@@ -316,6 +316,59 @@ section + section{padding-top:0}
 .stack-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;letter-spacing:-0.3px;margin-bottom:2px}
 .stack-why{font-size:11px;color:var(--ink3);line-height:1.4}
 
+/* ─── VIABILIDAD HARDWARE ─── */
+.hw-viab-layout{
+  display:grid;grid-template-columns:1.2fr 1fr;gap:48px;margin-top:64px;
+}
+.hw-viab-col{}
+.hw-viab-title{
+  font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ink3);
+  margin-bottom:20px;border-bottom:1px solid var(--ink4);padding-bottom:12px;
+}
+.hw-viab-intro{
+  font-size:13px;color:var(--ink2);line-height:1.6;margin-bottom:24px;
+}
+.hw-table{
+  display:flex;flex-direction:column;gap:1px;background:var(--ink4);border:1px solid var(--ink4);margin-bottom:24px;
+}
+.hw-table-header{
+  display:grid;grid-template-columns:2fr 1fr;background:var(--off);
+}
+.hw-table-header span{background:var(--off);padding:8px 16px;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--ink3)}
+.hw-table-row{
+  display:grid;grid-template-columns:2fr 1fr;background:var(--white);
+}
+.hw-table-row span{background:var(--white);padding:10px 16px;font-size:12px;color:var(--ink2)}
+.hw-table-row span:last-child{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--green)}
+
+.hw-totals{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--ink4);border:1px solid var(--ink4);margin-bottom:24px;
+}
+.hw-total-card{
+  background:var(--white);padding:16px;text-align:center;
+}
+.hw-total-val{
+  font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:var(--green);line-height:1.2;margin-bottom:4px;
+}
+.hw-total-lbl{
+  font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);
+}
+
+.hw-desc-list{
+  display:flex;flex-direction:column;gap:16px;
+}
+.hw-desc-item{
+  padding-bottom:16px;border-bottom:1px solid var(--off);
+}
+.hw-desc-item:last-child{border-bottom:none;padding-bottom:0;}
+.hw-desc-title{
+  font-size:12px;font-weight:500;color:var(--ink);margin-bottom:4px;display:flex;justify-content:space-between;
+}
+.hw-desc-title span:last-child{color:var(--ink3);font-size:11px;font-weight:400}
+.hw-desc-text{
+  font-size:12px;color:var(--ink3);line-height:1.5;
+}
+
 /* ─── PRICING ─── */
 .pricing-layout{
   display:grid;grid-template-columns:repeat(3,1fr);
@@ -448,7 +501,7 @@ footer{border-top:1px solid var(--ink4);padding:48px 40px}
   .hero{padding:80px 20px 60px}
   .h-display{font-size:52px;letter-spacing:-2px}
   .hero-body{grid-template-columns:1fr;gap:40px}
-  .problema-split,.vs-strip,.modules,.flujo,.charts-layout,.stack-layout,.pricing-layout,.rubros-layout,.track-grid{grid-template-columns:1fr}
+  .problema-split,.vs-strip,.modules,.flujo,.charts-layout,.stack-layout,.pricing-layout,.rubros-layout,.track-grid,.hw-viab-layout,.hw-totals{grid-template-columns:1fr}
   .flujo{grid-template-columns:1fr 1fr}
   .hw-header,.hw-row{grid-template-columns:1fr 2fr 80px}
 }
@@ -774,6 +827,112 @@ footer{border-top:1px solid var(--ink4);padding:48px 40px}
       <div class="stack-item"><div class="stack-name">ESP32 + MQTT</div><div class="stack-why">$8 USD/nodo, WiFi integrado</div></div>
       <div class="stack-item"><div class="stack-name">Jetson Nano</div><div class="stack-why">Edge AI, $99, local compute</div></div>
       <div class="stack-item"><div class="stack-name">Mosquitto</div><div class="stack-why">Broker IoT estándar industrial</div></div>
+    </div>
+  </div>
+
+  <!-- VIABILIDAD DE HARDWARE -->
+  <div class="hw-viab-layout reveal">
+    <div class="hw-viab-col">
+      <div class="hw-viab-title">Costo Mínimo Viable de Hardware (Pesos Mexicanos)</div>
+      <div class="hw-viab-intro">
+        Frente a estimaciones de hardware complejas, demostramos que la base preventiva de <strong>Prevex</strong> es extremadamente económica. Un nodo sensor completo para producción tiene costos altamente viables, mientras que el prototipo inicial reduce la inversión al mínimo.
+      </div>
+      
+      <!-- Tabla de componentes en MXN -->
+      <div class="hw-table">
+        <div class="hw-table-header">
+          <span>Componente</span>
+          <span>Costo Aprox (MXN)</span>
+        </div>
+        <div class="hw-table-row">
+          <span>ESP32 DevKit (Microcontrolador)</span>
+          <span>$95 – $152 MXN</span>
+        </div>
+        <div class="hw-table-row">
+          <span>DHT22 (Temperatura y Humedad)</span>
+          <span>$38 – $95 MXN</span>
+        </div>
+        <div class="hw-table-row">
+          <span>HC-SR501 PIR (Sensor de Movimiento)</span>
+          <span>$19 – $57 MXN</span>
+        </div>
+        <div class="hw-table-row">
+          <span>Reed Switch (Sensor Magnético de Puerta)</span>
+          <span>$9.50 – $38 MXN</span>
+        </div>
+        <div class="hw-table-row">
+          <span>HC-SR04 (Sensor de Residuos por Ultrasonido)</span>
+          <span>$19 – $57 MXN</span>
+        </div>
+      </div>
+      
+      <!-- Totales del nodo -->
+      <div class="hw-totals">
+        <div class="hw-total-card">
+          <div class="hw-total-val">~$180</div>
+          <div class="hw-total-lbl">Mínimo (MXN)</div>
+        </div>
+        <div class="hw-total-card">
+          <div class="hw-total-val">~$285</div>
+          <div class="hw-total-lbl">Promedio Realista</div>
+        </div>
+        <div class="hw-total-card">
+          <div class="hw-total-val">~$400</div>
+          <div class="hw-total-lbl">Máximo Componentes</div>
+        </div>
+      </div>
+
+      <div class="hw-viab-intro" style="margin-top:20px; font-style:italic; font-size:12px; color:var(--ink3);">
+        * Tipo de cambio estimado ≈ 19 MXN/USD. Estos costos demuestran a los jueces del hackathon que el hardware base es extremadamente accesible, haciendo que la propuesta de escalabilidad comercial sea altamente viable y creíble frente al costo genérico inicial de la presentación de $45 USD por nodo.
+      </div>
+    </div>
+    
+    <div class="hw-viab-col">
+      <div class="hw-viab-title">Prototipo Hackathon (~$210 MXN / Zona)</div>
+      <div class="hw-viab-intro">
+        Para el prototipo funcional del Hackathon no se requiere toda la variedad de sensores. Basta con el monitoreo ambiental base y de movimiento en zona para validar la bioseguridad predictiva:
+      </div>
+      
+      <div class="hw-table">
+        <div class="hw-table-row">
+          <span>ESP32 (Cerebro + WiFi)</span>
+          <span>~$115 MXN</span>
+        </div>
+        <div class="hw-table-row">
+          <span>DHT22 (Sensor de Humedad/Temp)</span>
+          <span>~$55 MXN</span>
+        </div>
+        <div class="hw-table-row">
+          <span>HC-SR501 PIR (Detector de Movimiento)</span>
+          <span>~$40 MXN</span>
+        </div>
+        <div class="hw-table-row" style="font-weight:600; border-top:1px solid var(--ink4)">
+          <span>Total Prototipo</span>
+          <span>~$210 MXN</span>
+        </div>
+      </div>
+
+      <div class="hw-viab-title">¿Cómo funciona y se instala en la empresa?</div>
+      <div class="hw-desc-list">
+        <div class="hw-desc-item">
+          <div class="hw-desc-title">Conexión de Sensores <span>Pines GPIO / Digitales</span></div>
+          <div class="hw-desc-text">
+            Los sensores DHT22, PIR y Reed Switch se conectan directamente a los pines GPIO del ESP32. El ultrasónico HC-SR04 utiliza dos pines (Trigger/Echo). El ESP32 lee sus valores digitales y analógicos de forma continua.
+          </div>
+        </div>
+        <div class="hw-desc-item">
+          <div class="hw-desc-title">Transmisión de Datos <span>WiFi + MQTT</span></div>
+          <div class="hw-desc-text">
+            El microcontrolador ESP32 utiliza su módulo WiFi integrado para conectarse a la red inalámbrica del establecimiento y envía lecturas ligeras estructuradas en JSON por protocolo MQTT a nuestro backend en tiempo real.
+          </div>
+        </div>
+        <div class="hw-desc-item">
+          <div class="hw-desc-title">Despliegue Físico en Empresa <span>Cajas 3D + USB 5V</span></div>
+          <div class="hw-desc-text">
+            Los componentes se instalan dentro de cajas compactas impresas en 3D (nodos sensores) montadas discretamente en paredes de cocinas, almacenes y puertas de carga. Se alimentan por USB de 5V usando cargadores estándar de celular o baterías de respaldo en zonas difíciles.
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
